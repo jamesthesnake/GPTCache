@@ -6,6 +6,7 @@
 
    usage.md
    feature.md
+   configure_it.md
    release_note.md
 
 .. toctree::
@@ -19,6 +20,7 @@
    bootcamp/openai/index
    bootcamp/replicate/index
    bootcamp/temperature/index
+   bootcamp/vertex/index
 
 .. toctree::
    :maxdepth: 1
