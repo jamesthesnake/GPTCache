@@ -1,11 +1,13 @@
 import numpy as np
 
+from gptcache.embedding import Onnx
 from gptcache.manager import VectorBase
 from gptcache.manager.vector_data.base import VectorData
 
 
 def test_redis_vector_store():
-    dim = 10
+    encoder = Onnx()
+    dim = encoder.dimension
     vector_base = VectorBase("redis", dimension=dim)
     vector_base.mul_add([VectorData(id=i, data=np.random.rand(dim)) for i in range(10)])
 

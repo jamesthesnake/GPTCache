@@ -15,6 +15,7 @@ __all__ = [
     "import_chromadb",
     "import_sqlalchemy",
     "import_sql_client",
+    "import_mongodb",
     "import_pydantic",
     "import_langchain",
     "import_pillow",
@@ -38,7 +39,9 @@ __all__ = [
     "import_paddlenlp",
     "import_tiktoken",
     "import_fastapi",
-    "import_redis"
+    "import_redis",
+    "import_qdrant",
+    "import_weaviate",
     ]
 
 import importlib.util
@@ -65,6 +68,10 @@ def import_milvus_lite():
     _check_library("milvus")
 
 
+def import_qdrant():
+    _check_library("qdrant_client")
+
+
 def import_sbert():
     _check_library("sentence_transformers", package="sentence-transformers")
 
@@ -82,11 +89,11 @@ def import_huggingface():
 
 
 def import_uform():
-    _check_library("uform")
+    _check_library("uform", package="uform==0.2.1")
 
 
 def import_usearch():
-    _check_library("usearch")
+    _check_library("usearch", package="usearch==0.22.3")
 
 
 def import_torch():
@@ -110,7 +117,7 @@ def import_hnswlib():
 
 
 def import_chromadb():
-    _check_library("chromadb")
+    _check_library("chromadb", package="chromadb==0.3.26")
 
 
 def import_sqlalchemy():
@@ -152,6 +159,11 @@ def import_sql_client(db_name):
         import_cxoracle()
     elif db_name == "duckdb":
         import_duckdb()
+
+
+def import_mongodb():
+    _check_library("pymongo")
+    _check_library("mongoengine")
 
 
 def import_pydantic():
@@ -243,5 +255,15 @@ def import_fastapi():
     _check_library("uvicorn", package="'uvicorn[standard]'")
     _check_library("fastapi")
 
+
 def import_redis():
     _check_library("redis")
+    _check_library("redis_om")
+
+
+def import_starlette():
+    _check_library("starlette")
+
+
+def import_weaviate():
+    _check_library("weaviate-client")
