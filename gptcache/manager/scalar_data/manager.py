@@ -1,7 +1,6 @@
 from gptcache.utils import import_sql_client
 from gptcache.utils.error import NotFoundError
 
-
 SQL_URL = {
     "sqlite": "sqlite:///./sqlite.db",
     "duckdb": "duckdb:///./duck.db",
@@ -83,6 +82,25 @@ class CacheBase:
                 url=sql_url,
                 table_name=table_name,
                 table_len_config=table_len_config,
+            )
+        elif name == "mongo":
+            from gptcache.manager.scalar_data.mongo import MongoStorage
+
+            return MongoStorage(
+                host=kwargs.get("mongo_host", "localhost"),
+                port=kwargs.get("mongo_port", 27017),
+                dbname=kwargs.get("dbname", TABLE_NAME),
+                username=kwargs.get("username"),
+                password=kwargs.get("password")
+            )
+        elif name == "redis":
+            from gptcache.manager.scalar_data.redis_storage import RedisCacheStorage
+
+            return RedisCacheStorage(
+                host=kwargs.pop("redis_host", "localhost"),
+                port=kwargs.pop("redis_port", 6379),
+                global_key_prefix=kwargs.pop("global_key_prefix", TABLE_NAME),
+                **kwargs
             )
         else:
             raise NotFoundError("cache store", name)
